@@ -11,5 +11,230 @@
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Subtle blue glow token */
+:root {
+	--glow-blue: 59, 130, 246; /* Tailwind blue-500 (as RGB) */
+}
+
+/* Reusable glow class */
+.glow-blue {
+	transition: box-shadow 150ms ease, border-color 150ms ease, transform 150ms ease, background-color 150ms ease;
+}
+
+.glow-blue:hover,
+.glow-blue:focus-visible {
+	border-color: rgba(var(--glow-blue), 0.55) !important;
+	box-shadow:
+		0 0 0 3px rgba(var(--glow-blue), 0.18),
+		0 10px 30px rgba(var(--glow-blue), 0.10) !important;
+}
+
+.glow-blue:active {
+	transform: scale(0.99);
+}
+
+/* Hero shell utilities */
+@layer components {
+	.heroShell {
+		border-radius: 1.5rem;
+		border: 1px solid rgb(226 232 240);
+		background-color: rgba(255, 255, 255, 0.75);
+		backdrop-filter: blur(8px);
+		box-shadow: 0 12px 35px rgba(15, 23, 42, 0.10);
+		padding: 1.25rem 1.5rem;
+	}
+
+	.heroTitle {
+		font-size: 1rem;
+		line-height: 1.5rem;
+		font-weight: 600;
+		color: rgb(15 23 42);
+	}
+
+	@media (min-width: 768px) {
+		.heroTitle {
+			font-size: 1.125rem;
+			line-height: 1.75rem;
+		}
+	}
+
+	.heroSub {
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		color: rgb(71 85 105);
+	}
+
+	@media (min-width: 768px) {
+		.heroSub {
+			font-size: 1rem;
+			line-height: 1.5rem;
+		}
+	}
+
+	.heroGlowHover {
+		transition: all 200ms;
+	}
+
+	.heroGlowHover:hover {
+		border-color: rgba(147, 197, 253, 0.6);
+		box-shadow:
+			0 0 0 4px rgba(59, 130, 246, 0.10),
+			0 14px 35px rgba(59, 130, 246, 0.12);
+	}
+}
+
+/* Premium AI-themed enhancements */
+@layer utilities {
+	.glass-effect {
+		background: rgba(255, 255, 255, 0.8);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+	}
+
+	.gradient-border {
+		position: relative;
+		background: white;
+		border-radius: 1rem;
+	}
+
+	.gradient-border::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 1rem;
+		padding: 1px;
+		background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.3));
+		-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+		pointer-events: none;
+	}
+
+
+	.premium-shadow {
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+	}
+
+	.premium-shadow-lg {
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05), 0 0 30px rgba(59, 130, 246, 0.15);
+	}
+
+	.button-glow {
+		box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2), 0 4px 12px rgba(59, 130, 246, 0.15);
+	}
+
+	.button-glow-hover {
+		box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 6px 20px rgba(59, 130, 246, 0.25), 0 0 30px rgba(37, 99, 235, 0.15);
+	}
+}
+
+/* Enhanced button styles for better visibility - target all button variants */
+@layer components {
+	/* Target Whop Button component with soft variant */
+	button[data-variant="soft"],
+	button[data-variant="outline"],
+	[data-variant="soft"],
+	[data-variant="outline"],
+	/* Also target by common class patterns */
+	button:has([class*="soft"]),
+	button:has([class*="outline"]) {
+		background: rgba(255, 255, 255, 0.95) !important;
+		border: 1.5px solid rgba(59, 130, 246, 0.3) !important;
+		color: rgb(30, 41, 59) !important;
+		transition: all 0.2s ease !important;
+		font-weight: 500 !important;
+	}
+
+	button[data-variant="soft"]:hover,
+	button[data-variant="outline"]:hover,
+	[data-variant="soft"]:hover,
+	[data-variant="outline"]:hover {
+		background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(59, 130, 246, 0.12)) !important;
+		border-color: rgba(59, 130, 246, 0.5) !important;
+		box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+		transform: translateY(-1px);
+		color: rgb(15, 23, 42) !important;
+	}
+
+	/* Target Whop Button component with solid/classic variant */
+	button[data-variant="solid"],
+	button[data-variant="classic"],
+	[data-variant="solid"],
+	[data-variant="classic"] {
+		background: linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235)) !important;
+		border: none !important;
+		color: white !important;
+		box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(59, 130, 246, 0.25), 0 0 20px rgba(37, 99, 235, 0.15) !important;
+		transition: all 0.2s ease !important;
+		font-weight: 600 !important;
+	}
+
+	button[data-variant="solid"]:hover,
+	button[data-variant="classic"]:hover,
+	[data-variant="solid"]:hover,
+	[data-variant="classic"]:hover {
+		background: linear-gradient(135deg, rgb(37, 99, 235), rgb(29, 78, 216)) !important;
+		box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4), 0 6px 20px rgba(59, 130, 246, 0.35), 0 0 30px rgba(37, 99, 235, 0.25) !important;
+		transform: translateY(-1px);
+	}
+
+	/* Fallback: target any button that looks like it might be a soft button (light background) */
+	button:not([data-variant="solid"]):not([data-variant="classic"]):not([style*="background"]) {
+		background: rgba(255, 255, 255, 0.95) !important;
+		border: 1.5px solid rgba(59, 130, 246, 0.3) !important;
+		color: rgb(30, 41, 59) !important;
+	}
+}
+
+/* Make interactive elements show pointer cursor */
+button,
+[role="button"],
+a {
+	cursor: pointer;
+}
+
+/* If something is disabled, don't show pointer */
+button:disabled,
+[aria-disabled="true"] {
+	cursor: not-allowed;
+}
+
+/* Force button visibility - catch all buttons that might be invisible */
+@layer components {
+	/* Target all buttons that don't have explicit background colors */
+	button:not([style*="background"]):not([class*="bg-"]) {
+		background-color: rgba(255, 255, 255, 0.95) !important;
+		border: 1.5px solid rgba(59, 130, 246, 0.3) !important;
+		color: rgb(30, 41, 59) !important;
+	}
+
+	/* Ensure Whop Button components are visible */
+	button[type="button"],
+	button[type="submit"] {
+		min-height: 2.5rem;
+		padding: 0.5rem 1rem;
+	}
+
+	/* Make sure soft variant buttons are always visible */
+	button:has(+ *),
+	button[class*="soft"],
+	button[class*="outline"] {
+		background-color: rgba(255, 255, 255, 0.95) !important;
+		border: 1.5px solid rgba(59, 130, 246, 0.3) !important;
+		color: rgb(30, 41, 59) !important;
+		font-weight: 500 !important;
+	}
+
+	/* Force hover states on buttons */
+	button:hover:not([disabled]):not([data-variant="solid"]):not([data-variant="classic"]) {
+		background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(59, 130, 246, 0.12)) !important;
+		border-color: rgba(59, 130, 246, 0.5) !important;
+		color: rgb(15, 23, 42) !important;
+		box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+		transform: translateY(-1px) !important;
+	}
 }

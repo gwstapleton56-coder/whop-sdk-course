@@ -1,0 +1,212 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model UserProfile {
+  id           Int      @id @default(autoincrement())
+  whopUserId   String   @unique
+  primaryNiche Niche?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  customNiche  String?
+}
+
+model PracticeSession {
+  id                    Int        @id @default(autoincrement())
+  whopUserId            String
+  nicheKey              String
+  data                  Json
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+  lastCompletionSummary Json?
+  drillSets             DrillSet[]
+
+  @@unique([whopUserId, nicheKey])
+  @@index([whopUserId])
+}
+
+model DrillSet {
+  id                 Int             @id @default(autoincrement())
+  sessionId          Int
+  struggle           String
+  objective          String
+  practicePreference String
+  nicheKey           String
+  customNiche        String?
+  drillsJson         Json
+  createdAt          DateTime        @default(now())
+  session            PracticeSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+}
+
+model UserFocusProgress {
+  id              String    @id @default(cuid())
+  whopUserId      String
+  nicheKey        String
+  focusKey        String
+  focusLabel      String
+  setsCompleted   Int       @default(0)
+  lastCompletedAt DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([whopUserId, nicheKey, focusKey])
+  @@index([whopUserId, nicheKey])
+}
+
+model ProgressEvent {
+  id                 String   @id @default(cuid())
+  clientCompletionId String   @unique
+  whopUserId         String
+  niche              Niche
+  customNiche        String?
+  createdAt          DateTime @default(now())
+
+  @@index([whopUserId, niche])
+  @@index([whopUserId, niche, customNiche])
+}
+
+model CreatorSettings {
+  experienceId  String  @id
+  globalContext String? @db.Text
+  resources     Json?   // Array of Resource objects for practice area (deprecated - use KnowledgeResource table)
+
+  allowAutoDefaults Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("creator_settings")
+}
+
+model NichePreset {
+  id           String   @id @default(cuid())
+  experienceId String
+  key          String
+  label        String
+  aiContext    String?  @db.Text
+  icon         String? // Lucide icon name (e.g., "TrendingUp", "Dumbbell")
+  enabled      Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([experienceId, key])
+  @@index([experienceId, sortOrder])
+  @@map("niche_preset")
+}
+
+model UserNicheProfile {
+  id           String @id @default(cuid())
+  experienceId String
+  whopUserId   String
+
+  // For preset niches: nicheKey = preset key, customNiche = null
+  // For custom niches: nicheKey = "custom", customNiche = "Driving Permit Test" (exact text)
+  nicheKey    String
+  customNiche String? @db.Text
+
+  // Common "extra context"
+  state    String? // ex: "Indiana"
+  country  String? // ex: "US"
+  testType String? // ex: "permit", "cdl", "motorcycle"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([experienceId, whopUserId, nicheKey, customNiche])
+  @@index([experienceId, whopUserId])
+  @@map("user_niche_profile")
+}
+
+enum Niche {
+  TRADING
+  SPORTS
+  SOCIAL_MEDIA
+  RESELLING
+  FITNESS
+  CUSTOM
+}
+
+model SupportTicket {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  whopUserId   String
+  experienceId String
+
+  niche   String?
+  message String  @db.Text
+
+  status String @default("open") // open | resolved
+
+  @@index([whopUserId])
+  @@index([experienceId])
+  @@index([status, createdAt])
+  @@map("support_ticket")
+}
+
+model CoachThread {
+  id           String   @id @default(cuid())
+  experienceId String
+  userId       String
+  title        String?
+  favorite     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  messages     CoachMessage[]
+
+  @@index([experienceId, userId])
+  @@map("coach_thread")
+}
+
+model CoachMessage {
+  id        String      @id @default(cuid())
+  threadId  String
+  role      String      // "user" | "assistant" | "system"
+  content   String      @db.Text
+  createdAt DateTime    @default(now())
+  thread    CoachThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@index([threadId, createdAt])
+  @@map("coach_message")
+}
+
+model GlobalCoachSettings {
+  id              String   @id @default(cuid())
+  experienceId    String   @unique
+  coachName       String?  @default("AI Coach") // Customizable name for the AI coach
+  systemPrompt    String   @default("You are a strict but helpful coach...") @db.Text
+  communityContext String? @db.Text // Context about the community/group to customize AI reasoning
+  resources       Json?    // Array of Resource objects for coach knowledge base (deprecated - use KnowledgeResource table)
+  tone            String   @default("direct") // direct, friendly, intense
+  enableQuiz      Boolean  @default(true)
+  enablePlan      Boolean  @default(true)
+  enableRoleplay  Boolean  @default(true)
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+
+  @@map("global_coach_settings")
+}
+
+model KnowledgeResource {
+  id           String   @id @default(cuid())
+  experienceId String
+  scope        String   // "practice" | "coach" - which admin section this belongs to
+  type         String   // "pdf" | "link" | "doc" | "video"
+  title        String
+  url          String   @db.Text // Permanent URL to the resource (from object storage or public/uploads)
+  description  String?  @db.Text
+  nicheKey     String?  // Optional: associate with a specific niche preset
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([experienceId, scope])
+  @@index([experienceId, scope, nicheKey])
+  @@map("knowledge_resource")
+}
