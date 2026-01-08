@@ -96,3 +96,4 @@ export function isFirstTimeUser(progressCount: number): boolean {
   return progressCount === 0 && shouldShowOnboarding();
 }
 
+

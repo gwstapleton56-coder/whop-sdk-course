@@ -22,3 +22,4 @@ CREATE INDEX "support_ticket_status_createdAt_idx" ON "support_ticket"("status",
 
 
 
+

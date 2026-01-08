@@ -22,3 +22,4 @@ export function Skeleton({
   return <div className={`${baseClasses} h-4 ${className}`} />;
 }
 
+

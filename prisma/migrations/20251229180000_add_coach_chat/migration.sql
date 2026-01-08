@@ -48,3 +48,4 @@ CREATE UNIQUE INDEX "global_coach_settings_experienceId_key" ON "global_coach_se
 -- AddForeignKey
 ALTER TABLE "coach_message" ADD CONSTRAINT "coach_message_threadId_fkey" FOREIGN KEY ("threadId") REFERENCES "coach_thread"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
+
