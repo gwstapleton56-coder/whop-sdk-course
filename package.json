@@ -6,7 +6,8 @@
 		"dev": "whop-proxy --command 'next dev --turbopack'",
 		"build": "next build",
 		"start": "next start",
-		"lint": "biome lint"
+		"lint": "biome lint",
+		"postinstall": "prisma generate"
 	},
 	"dependencies": {
 		"@prisma/adapter-pg": "^7.1.0",

@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
 import { whopsdk } from "@/lib/whop-sdk";
 import { isCreatorOrAdmin } from "@/lib/access";
-import { Niche } from "@prisma/client";
+import type { Niche } from "@prisma/client";
 
 export async function GET(req: Request) {
   try {

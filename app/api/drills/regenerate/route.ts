@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { whopsdk } from "@/lib/whop-sdk";
 import { prisma } from "@/lib/db";
-import { Niche } from "@prisma/client";
+import type { Niche } from "@prisma/client";
 import OpenAI from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

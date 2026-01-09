@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@whop/react/components";
-import { Niche } from "@prisma/client";
+import type { Niche } from "@prisma/client";
 
 const NICHE_LABELS: Record<string, string> = {
   TRADING: "Trading",

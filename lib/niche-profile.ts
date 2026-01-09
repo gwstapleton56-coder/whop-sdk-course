@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import { Niche } from "@prisma/client";
+import type { Niche } from "@prisma/client";
 
 const DEFAULT_NICHE_PROFILES: Record<string, { label: string; context: string }> = {
   TRADING: {

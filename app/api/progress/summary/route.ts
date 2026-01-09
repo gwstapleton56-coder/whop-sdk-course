@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { whopsdk } from "@/lib/whop-sdk";
 import { prisma } from "@/lib/db";
-import { Niche } from "@prisma/client";
+import type { Niche } from "@prisma/client";
 
 export async function GET(req: Request) {
   try {
