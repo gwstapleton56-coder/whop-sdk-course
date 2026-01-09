@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ hostname: "**" }],
   },
+  // Note: CSS warnings about @property at-rule are harmless - it's valid CSS supported by modern browsers
+  // The warnings come from the CSS parser not recognizing the @property syntax, but browsers handle it correctly
   async headers() {
     return [
       {
