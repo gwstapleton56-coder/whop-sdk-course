@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*",
+        source: "/(.*)",
         headers: [
           {
             key: "X-DNS-Prefetch-Control",
@@ -19,7 +19,11 @@ const nextConfig: NextConfig = {
           },
           {
             key: "X-Frame-Options",
-            value: "SAMEORIGIN",
+            value: "ALLOWALL",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self' https://whop.com https://*.whop.com;",
           },
           {
             key: "X-Content-Type-Options",
