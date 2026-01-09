@@ -2258,7 +2258,7 @@ export function PracticeArea({
             session.evaluations[session.currentIndex] && (
               <div className="mt-6 space-y-4">
                 {/* Progress Confirmation - Shows for first-time users after first session */}
-                {completionSummary && progressCount === 1 && (
+                {completionSummary && progressCount === 1 && experienceId && (
                   <ProgressConfirmation
                     experienceId={experienceId}
                     nicheLabel={completionSummary.nicheLabel || nicheLabel}

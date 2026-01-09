@@ -78,10 +78,10 @@ export async function POST(req: Request) {
     
     const validationResult = resourceSchema.safeParse(body);
     if (!validationResult.success) {
-      console.error("[POST /api/knowledge-resources] Validation errors:", validationResult.error.errors);
+      console.error("[POST /api/knowledge-resources] Validation errors:", validationResult.error.issues);
       return NextResponse.json({ 
         error: "Invalid request data", 
-        details: validationResult.error.errors 
+        details: validationResult.error.issues 
       }, { status: 400 });
     }
     const validated = validationResult.data;
