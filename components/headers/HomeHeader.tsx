@@ -63,7 +63,7 @@ export default function HomeHeader({
                   src={avatarUrl}
                   alt={displayName ?? "Profile"}
                   referrerPolicy="no-referrer"
-                  className="h-full w-full object-cover"
+                  className="fui-AvatarImage h-full w-full object-cover"
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).style.display = "none";
                   }}

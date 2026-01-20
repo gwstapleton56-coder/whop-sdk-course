@@ -1150,7 +1150,7 @@ export default function CoachChatPage() {
                       src={avatarUrl}
                       alt={(displayName || username) ?? "Profile"}
                       referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover"
+                      className="fui-AvatarImage h-full w-full object-cover"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).style.display = "none";
                       }}
