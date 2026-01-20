@@ -917,7 +917,7 @@ export default function CoachChatPage() {
     <div className="flex items-center justify-center">
       <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden shrink-0">
         <img
-          src="/brand/Icon.png"
+          src="/brand/icon.png"
           alt="Skill Accelerator"
           className="w-full h-full object-cover"
         />
@@ -929,7 +929,7 @@ export default function CoachChatPage() {
   const MessageLogoIcon = () => (
     <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
       <img
-        src="/brand/Icon.png"
+        src="/brand/icon.png"
         alt="Skill Accelerator"
         className="w-full h-full object-cover"
       />
