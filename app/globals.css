@@ -197,6 +197,32 @@ a {
 	cursor: pointer;
 }
 
+/* Mobile button alignment fixes */
+@layer components {
+	button,
+	[role="button"],
+	a[role="button"] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1.2;
+		text-align: center;
+	}
+
+	button > span,
+	[role="button"] > span {
+		line-height: 1.2;
+	}
+}
+
+@media (max-width: 640px) {
+	button,
+	[role="button"],
+	a[role="button"] {
+		padding: 0.5rem 0.875rem;
+	}
+}
+
 /* If something is disabled, don't show pointer */
 button:disabled,
 [aria-disabled="true"] {
