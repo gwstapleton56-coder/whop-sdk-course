@@ -14,7 +14,10 @@ export async function GET(req: Request) {
     const user = await whopsdk.users.retrieve(userId);
     const displayName = user.name || `@${user.username}`;
     const u: any = user;
-    const avatarUrl = u?.profile_picture?.url || null;
+    const avatarUrl =
+      u?.profile_picture?.original_url ??
+      u?.profile_picture?.url ??
+      null;
 
     // Check if user is owner of the experience (if experienceId provided)
     let isOwnerUser = false;

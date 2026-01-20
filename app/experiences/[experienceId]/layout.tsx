@@ -41,8 +41,11 @@ export default async function ExperienceLayout({
   const displayName = user.name || `@${user.username}`;
   const u: any = user;
   
-  // Avatar URL from Whop user object (profile_picture.url)
-  const avatarUrl = u?.profile_picture?.url || null;
+  // Prefer the original profile picture URL when available
+  const avatarUrl =
+    u?.profile_picture?.original_url ??
+    u?.profile_picture?.url ??
+    null;
 
   const isCreator = isCreatorOrAdmin(access);
   const isOwnerUser = isOwner(access);
