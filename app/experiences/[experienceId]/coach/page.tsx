@@ -1146,11 +1146,10 @@ export default function CoachChatPage() {
               <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm">
                 <div className="h-8 w-8 overflow-hidden rounded-full border border-gray-200 bg-gray-50 grid place-items-center text-[12px] font-semibold text-gray-700">
                   {avatarUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={avatarUrl}
-                      alt={displayName || username}
-                      className="h-full w-full object-cover"
+                      alt="Profile"
+                      className="h-8 w-8 rounded-full object-cover"
                     />
                   ) : (
                     (displayName?.[0] || username?.[0] || "?").toUpperCase()
