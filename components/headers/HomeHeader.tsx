@@ -61,8 +61,12 @@ export default function HomeHeader({
               {avatarUrl ? (
                 <img
                   src={avatarUrl}
-                  alt="Profile"
-                  className="h-8 w-8 rounded-full object-cover"
+                  alt={displayName ?? "Profile"}
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full object-cover"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
                 />
               ) : (
                 (displayName?.[0] || username?.[0] || "?").toUpperCase()
