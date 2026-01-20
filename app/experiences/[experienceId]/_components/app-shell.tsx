@@ -228,7 +228,7 @@ export function AppShell({
             className="absolute inset-0 bg-black/20 pointer-events-auto"
             onClick={() => setOpen(false)}
           />
-          <div className="fixed left-0 top-0 h-full w-[320px] bg-white p-4 shadow-xl pointer-events-auto z-[70]">
+          <div className="fixed left-0 top-0 h-full w-[320px] bg-white p-4 shadow-xl pointer-events-auto z-[70] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div className="text-[13px] font-semibold text-gray-900">
                 Navigation
