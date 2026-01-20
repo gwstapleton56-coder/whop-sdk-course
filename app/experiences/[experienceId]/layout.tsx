@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { isCreatorOrAdmin, isOwner } from "@/lib/access";
 import { seedWhopDefaultsIfAllowed } from "@/lib/niche-defaults";
 import { AppShell } from "./_components/app-shell";
+import { normalizeWhopAvatarUrl } from "@/lib/avatar";
 
 export default async function ExperienceLayout({
   children,
@@ -41,11 +42,12 @@ export default async function ExperienceLayout({
   const displayName = user.name || `@${user.username}`;
   const u: any = user;
   
-  // Prefer the original profile picture URL when available
-  const avatarUrl =
+  // Prefer the original profile picture URL when available, normalize default avatar URLs
+  const avatarUrl = normalizeWhopAvatarUrl(
     u?.profile_picture?.original_url ??
-    u?.profile_picture?.url ??
-    null;
+      u?.profile_picture?.url ??
+      null
+  );
 
   const isCreator = isCreatorOrAdmin(access);
   const isOwnerUser = isOwner(access);
