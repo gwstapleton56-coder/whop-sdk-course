@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@whop/react/components";
 import { ArrowRight, MoreVertical, Star, Trash2, Edit2, X, AlertTriangle, MessageSquare, Send, Menu, Sparkles, Home, Target, Settings, HelpCircle } from "lucide-react";
 
@@ -917,13 +916,10 @@ export default function CoachChatPage() {
   const LogoIcon = () => (
     <div className="flex items-center justify-center">
       <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden shrink-0">
-        <Image 
-          src="/brand/Icon.png" 
-          alt="Skill Accelerator" 
-          width={128} 
-          height={128} 
+        <img
+          src="/brand/Icon.png"
+          alt="Skill Accelerator"
           className="w-full h-full object-cover"
-          unoptimized
         />
       </div>
     </div>
@@ -932,13 +928,10 @@ export default function CoachChatPage() {
   // Small logo icon for messages - Original colored SA logo
   const MessageLogoIcon = () => (
     <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
-      <Image 
-        src="/brand/Icon.png" 
-        alt="Skill Accelerator" 
-        width={40} 
-        height={40} 
+      <img
+        src="/brand/Icon.png"
+        alt="Skill Accelerator"
         className="w-full h-full object-cover"
-        unoptimized
       />
     </div>
   );
